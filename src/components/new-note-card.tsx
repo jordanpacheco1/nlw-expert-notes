@@ -139,6 +139,7 @@ export function NewNoteCard({ onNoteCreated }: NewNoteCardProps) {
                   autoFocus
                   className="text-slate-400 text-sm leading-6 bg-transparent resize-none flex-1 outline-none"
                   onChange={handleContentChanged}
+                  inputMode="none"
                 />
               )}
             </div>
