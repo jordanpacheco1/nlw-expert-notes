@@ -1,6 +1,12 @@
 import * as Dialog from "@radix-ui/react-dialog";
 
-import { ChangeEvent, FormEvent, useEffect, useState } from "react";
+import {
+  ChangeEvent,
+  FormEvent,
+  HTMLAttributes,
+  useEffect,
+  useState,
+} from "react";
 
 import { X } from "lucide-react";
 import { toast } from "sonner";
@@ -16,6 +22,9 @@ export function NewNoteCard({ onNoteCreated }: NewNoteCardProps) {
   const [isRecording, setIsRecording] = useState(false);
   const [content, setContent] = useState("");
   const [isOpen, setIsOpen] = useState(false);
+  const [inputMode, setInputMode] = useState<
+    HTMLAttributes<HTMLTextAreaElement>["inputMode"]
+  >("none");
 
   function handleStartEditor() {
     setShouldShowOnboarding(false);
@@ -148,7 +157,10 @@ export function NewNoteCard({ onNoteCreated }: NewNoteCardProps) {
                   autoFocus
                   className="text-slate-400 text-sm leading-6 bg-transparent resize-none flex-1 outline-none"
                   onChange={handleContentChanged}
-                  inputMode="none"
+                  inputMode={inputMode}
+                  onMouseDown={() => {
+                    setInputMode("text");
+                  }}
                 />
               )}
             </div>
