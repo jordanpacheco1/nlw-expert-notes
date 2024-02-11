@@ -36,6 +36,7 @@ export function NewNoteCard({ onNoteCreated }: NewNoteCardProps) {
     if (event.target.value === "") {
       setShouldShowOnboarding(true);
       setIsRecording(false);
+      setInputMode("none");
     }
   }
 
