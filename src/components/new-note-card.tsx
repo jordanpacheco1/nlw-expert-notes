@@ -26,6 +26,13 @@ export function NewNoteCard({ onNoteCreated }: NewNoteCardProps) {
     HTMLAttributes<HTMLTextAreaElement>["inputMode"]
   >("none");
 
+  function resetAllStates() {
+    setShouldShowOnboarding(true);
+    setIsRecording(false);
+    setContent("");
+    setInputMode("none");
+  }
+
   function handleStartEditor() {
     setShouldShowOnboarding(false);
   }
@@ -34,9 +41,7 @@ export function NewNoteCard({ onNoteCreated }: NewNoteCardProps) {
     setContent(event.target.value);
 
     if (event.target.value === "") {
-      setShouldShowOnboarding(true);
-      setIsRecording(false);
-      setInputMode("none");
+      resetAllStates();
     }
   }
 
@@ -49,8 +54,7 @@ export function NewNoteCard({ onNoteCreated }: NewNoteCardProps) {
 
     onNoteCreated(content);
 
-    setContent("");
-    setShouldShowOnboarding(true);
+    resetAllStates();
 
     toast.success("Nota criada com sucesso!");
   }
@@ -103,9 +107,7 @@ export function NewNoteCard({ onNoteCreated }: NewNoteCardProps) {
 
   useEffect(() => {
     if (!isOpen) {
-      setContent("");
-      setShouldShowOnboarding(true);
-      setIsRecording(false);
+      resetAllStates();
     }
   }, [isOpen]);
 
