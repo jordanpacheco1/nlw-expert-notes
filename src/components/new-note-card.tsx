@@ -1,6 +1,6 @@
 import * as Dialog from "@radix-ui/react-dialog";
 
-import { ChangeEvent, FormEvent, useState } from "react";
+import { ChangeEvent, FormEvent, useEffect, useState } from "react";
 
 import { X } from "lucide-react";
 import { toast } from "sonner";
@@ -15,6 +15,7 @@ export function NewNoteCard({ onNoteCreated }: NewNoteCardProps) {
   const [shouldShowOnboarding, setShouldShowOnboarding] = useState(true);
   const [isRecording, setIsRecording] = useState(false);
   const [content, setContent] = useState("");
+  const [isOpen, setIsOpen] = useState(false);
 
   function handleStartEditor() {
     setShouldShowOnboarding(false);
@@ -89,8 +90,16 @@ export function NewNoteCard({ onNoteCreated }: NewNoteCardProps) {
     if (content === "") setShouldShowOnboarding(true);
   }
 
+  useEffect(() => {
+    if (!isOpen) {
+      setContent("");
+      setShouldShowOnboarding(true);
+      setIsRecording(false);
+    }
+  }, [isOpen]);
+
   return (
-    <Dialog.Root>
+    <Dialog.Root open={isOpen} onOpenChange={setIsOpen}>
       <Dialog.Trigger className="rounded-md bg-slate-700 p-5 text-left gap-3 flex flex-col hover:ring-2 hover:ring-slate-600 focus-visible:ring-2 focus-visible:ring-lime-400 outline-none">
         <span className="text-sm font-medium text-slate-200">
           Adicionar nota
